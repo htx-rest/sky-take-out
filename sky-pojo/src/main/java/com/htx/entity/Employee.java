@@ -1,0 +1,51 @@
+package com.htx.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+/**
+ * 微信搜索「二哈学习之路」
+ *
+ * @author htx
+ * @date 2024/8/25 14:44
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Employee implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
+
+    private String username;
+
+    private String name;
+
+    private String password;
+
+    private String phone;
+
+    private String sex;
+
+    private String idNumber;
+
+    private Integer status;
+
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
+
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
+
+    private Long createUser;
+
+    private Long updateUser;
+
+}
