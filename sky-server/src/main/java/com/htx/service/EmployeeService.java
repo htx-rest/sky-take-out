@@ -2,7 +2,9 @@ package com.htx.service;
 
 import com.htx.dto.EmployeeDTO;
 import com.htx.dto.EmployeeLoginDTO;
+import com.htx.dto.EmployeePageQueryDTO;
 import com.htx.entity.Employee;
+import com.htx.result.PageResult;
 
 /**
  * 微信搜索「二哈学习之路」
@@ -24,4 +26,11 @@ public interface EmployeeService {
      * @param employeeDTO
      */
     void save(EmployeeDTO employeeDTO);
+
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
+    PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 }

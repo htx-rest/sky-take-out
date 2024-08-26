@@ -3,8 +3,10 @@ package com.htx.controller.admin;
 import com.htx.constant.JwtClaimsConstant;
 import com.htx.dto.EmployeeDTO;
 import com.htx.dto.EmployeeLoginDTO;
+import com.htx.dto.EmployeePageQueryDTO;
 import com.htx.entity.Employee;
 import com.htx.properties.JwtProperties;
+import com.htx.result.PageResult;
 import com.htx.result.Result;
 import com.htx.service.EmployeeService;
 import com.htx.utils.JwtUtil;
@@ -12,10 +14,7 @@ import com.htx.vo.EmployeeLoginVO;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,6 +85,19 @@ public class EmployeeController {
     public Result save(@RequestBody EmployeeDTO employeeDTO){
         employeeService.save(employeeDTO);
         return Result.success();
+    }
+
+    /**
+     * 员工分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("员工分页查询")
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
+        log.info("员工分页查询，参数为：{}", employeePageQueryDTO);
+        PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);//后续定义
+        return Result.success(pageResult);
     }
 
 }

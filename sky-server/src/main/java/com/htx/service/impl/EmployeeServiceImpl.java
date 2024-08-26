@@ -1,16 +1,20 @@
 package com.htx.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.htx.constant.MessageConstant;
 import com.htx.constant.PasswordConstant;
 import com.htx.constant.StatusConstant;
 import com.htx.context.BaseContext;
 import com.htx.dto.EmployeeDTO;
 import com.htx.dto.EmployeeLoginDTO;
+import com.htx.dto.EmployeePageQueryDTO;
 import com.htx.entity.Employee;
 import com.htx.exception.AccountLockedException;
 import com.htx.exception.AccountNotFoundException;
 import com.htx.exception.PasswordErrorException;
 import com.htx.mapper.EmployeeMapper;
+import com.htx.result.PageResult;
 import com.htx.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 微信搜索「二哈学习之路」
@@ -93,6 +98,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);//后续步骤定义
+    }
+
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        //开始分页查询
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);//后续定义
+
+        long total = page.getTotal();
+        List<Employee> records = page.getResult();
+
+        return new PageResult(total, records);
     }
 
 }
