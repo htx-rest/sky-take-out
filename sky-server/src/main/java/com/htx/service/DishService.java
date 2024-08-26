@@ -5,6 +5,8 @@ import com.htx.dto.DishPageQueryDTO;
 import com.htx.entity.Dish;
 import com.htx.result.PageResult;
 
+import java.util.List;
+
 /**
  * 微信搜索「二哈学习之路」
  *
@@ -27,4 +29,11 @@ public interface DishService {
      * @return
      */
     PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * 菜品批量删除
+     *
+     * @param ids
+     */
+    void deleteBatch(List<Long> ids);
 }
