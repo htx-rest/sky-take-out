@@ -1,8 +1,10 @@
 package com.htx.mapper;
 
 import com.github.pagehelper.Page;
+import com.htx.annotation.AutoFill;
 import com.htx.dto.EmployeePageQueryDTO;
 import com.htx.entity.Employee;
+import com.htx.enumeration.OperationType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -31,6 +33,7 @@ public interface EmployeeMapper {
     @Insert("insert into employee (name, username, password, phone, sex, id_number, create_time, update_time, create_user, update_user,status) " +
             "values " +
             "(#{name},#{username},#{password},#{phone},#{sex},#{idNumber},#{createTime},#{updateTime},#{createUser},#{updateUser},#{status})")
+    @AutoFill(value = OperationType.INSERT)
     void insert(Employee employee);
 
     /**
@@ -44,6 +47,7 @@ public interface EmployeeMapper {
      * 根据主键动态修改属性
      * @param employee
      */
+    @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
 
     /**
