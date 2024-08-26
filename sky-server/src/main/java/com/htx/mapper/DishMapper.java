@@ -1,8 +1,11 @@
 package com.htx.mapper;
 
+import com.github.pagehelper.Page;
 import com.htx.annotation.AutoFill;
+import com.htx.dto.DishPageQueryDTO;
 import com.htx.entity.Dish;
 import com.htx.enumeration.OperationType;
+import com.htx.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -30,5 +33,13 @@ public interface DishMapper {
      */
     @AutoFill(value = OperationType.INSERT)
     void insert(Dish dish);
+
+    /**
+     * 菜品分页查询
+     *
+     * @param dishPageQueryDTO
+     * @return
+     */
+    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
 }

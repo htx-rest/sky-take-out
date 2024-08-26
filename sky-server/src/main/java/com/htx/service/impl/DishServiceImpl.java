@@ -1,11 +1,16 @@
 package com.htx.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.htx.dto.DishDTO;
+import com.htx.dto.DishPageQueryDTO;
 import com.htx.entity.Dish;
 import com.htx.entity.DishFlavor;
 import com.htx.mapper.DishFlavorMapper;
 import com.htx.mapper.DishMapper;
+import com.htx.result.PageResult;
 import com.htx.service.DishService;
+import com.htx.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +59,18 @@ public class DishServiceImpl implements DishService {
             //向口味表插入n条数据
             dishFlavorMapper.insertBatch(flavors);//后绪步骤实现
         }
+    }
+
+    /**
+     * 菜品分页查询
+     *
+     * @param dishPageQueryDTO
+     * @return
+     */
+    public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
+        PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
+        Page<DishVO> page = dishMapper.pageQuery(dishPageQueryDTO);//后绪步骤实现
+        return new PageResult(page.getTotal(), page.getResult());
     }
 
 }

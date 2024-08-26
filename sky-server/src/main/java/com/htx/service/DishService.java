@@ -1,7 +1,9 @@
 package com.htx.service;
 
 import com.htx.dto.DishDTO;
+import com.htx.dto.DishPageQueryDTO;
 import com.htx.entity.Dish;
+import com.htx.result.PageResult;
 
 /**
  * 微信搜索「二哈学习之路」
@@ -17,4 +19,12 @@ public interface DishService {
      * @param dishDTO
      */
     public void saveWithFlavor(DishDTO dishDTO);
+
+    /**
+     * 菜品分页查询
+     *
+     * @param dishPageQueryDTO
+     * @return
+     */
+    PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
 }
