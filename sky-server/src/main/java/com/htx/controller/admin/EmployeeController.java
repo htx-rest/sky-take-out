@@ -1,6 +1,7 @@
 package com.htx.controller.admin;
 
 import com.htx.constant.JwtClaimsConstant;
+import com.htx.dto.EmployeeDTO;
 import com.htx.dto.EmployeeLoginDTO;
 import com.htx.entity.Employee;
 import com.htx.properties.JwtProperties;
@@ -8,6 +9,7 @@ import com.htx.result.Result;
 import com.htx.service.EmployeeService;
 import com.htx.utils.JwtUtil;
 import com.htx.vo.EmployeeLoginVO;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +43,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation(value = "员工登录")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
 
@@ -71,6 +74,17 @@ public class EmployeeController {
      */
     @PostMapping("/logout")
     public Result<String> logout() {
+        return Result.success();
+    }
+
+    /**
+     *  新增员工
+     * @param employeeDTO
+     * @return
+     */
+    @PostMapping
+    public Result save(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.save(employeeDTO);
         return Result.success();
     }
 

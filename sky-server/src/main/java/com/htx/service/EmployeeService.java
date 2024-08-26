@@ -1,5 +1,6 @@
 package com.htx.service;
 
+import com.htx.dto.EmployeeDTO;
 import com.htx.dto.EmployeeLoginDTO;
 import com.htx.entity.Employee;
 
@@ -18,4 +19,9 @@ public interface EmployeeService {
      */
     Employee login(EmployeeLoginDTO employeeLoginDTO);
 
+    /**
+     * 新增员工
+     * @param employeeDTO
+     */
+    void save(EmployeeDTO employeeDTO);
 }
