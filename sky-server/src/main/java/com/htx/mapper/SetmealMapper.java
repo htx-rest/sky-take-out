@@ -1,11 +1,18 @@
 package com.htx.mapper;
 
+import com.github.pagehelper.Page;
+import com.htx.annotation.AutoFill;
+import com.htx.dto.SetmealPageQueryDTO;
 import com.htx.entity.Setmeal;
+import com.htx.enumeration.OperationType;
 import com.htx.vo.DishItemVO;
+import com.htx.vo.SetmealVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 微信搜索「二哈学习之路」
@@ -18,11 +25,57 @@ public interface SetmealMapper {
 
     /**
      * 根据分类id查询套餐的数量
+     *
      * @param id
      * @return
      */
     @Select("select count(id) from setmeal where category_id = #{categoryId}")
     Integer countByCategoryId(Long id);
+
+    /**
+     * 根据id修改套餐
+     *
+     * @param setmeal
+     */
+    @AutoFill(OperationType.UPDATE)
+    void update(Setmeal setmeal);
+
+    /**
+     * 新增套餐
+     *
+     * @param setmeal
+     */
+    @AutoFill(OperationType.INSERT)
+    void insert(Setmeal setmeal);
+
+    /**
+     * 分页查询
+     * @param setmealPageQueryDTO
+     * @return
+     */
+    Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    /**
+     * 根据id查询套餐
+     * @param id
+     * @return
+     */
+    @Select("select * from setmeal where id = #{id}")
+    Setmeal getById(Long id);
+
+    /**
+     * 根据id删除套餐
+     * @param setmealId
+     */
+    @Delete("delete from setmeal where id = #{id}")
+    void deleteById(Long setmealId);
+
+    /**
+     * 根据id查询套餐和套餐菜品关系
+     * @param id
+     * @return
+     */
+    SetmealVO getByIdWithDish(Long id);
 
     /**
      * 动态条件查询套餐
@@ -41,4 +94,10 @@ public interface SetmealMapper {
             "where sd.setmeal_id = #{setmealId}")
     List<DishItemVO> getDishItemBySetmealId(Long setmealId);
 
+    /**
+     * 根据条件统计套餐数量
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
 }
